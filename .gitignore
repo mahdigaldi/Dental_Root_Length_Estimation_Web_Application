@@ -1,0 +1,8 @@
+__pycache__/
+.venv/
+logs/*
+static/uploads/*
+static/outputs/*
+!logs/.gitkeep
+!static/uploads/.gitkeep
+!static/outputs/.gitkeep

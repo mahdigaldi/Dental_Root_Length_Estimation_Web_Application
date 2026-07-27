@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dental Length Estimator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="control-panel">
+        <div class="brand">
+          <span class="brand-mark">D/E</span>
+          <div>
+            <h1>تخمین طول ریشه دندان شیری</h1>
+            <p>تشخیص دندان D و E، رسم خط راس تا جوانه و تخمین طول بر حسب میلی‌متر</p>
+          </div>
+        </div>
+
+        <form id="predictForm" class="form">
+          <label class="drop-zone" for="imageInput">
+            <input id="imageInput" name="image" type="file" accept="image/*" required />
+            <span id="fileLabel">انتخاب تصویر رادیوگرافی</span>
+          </label>
+
+          <div class="grid">
+            <label>
+              روش مدل
+              <select name="method">
+                <option value="ensemble" selected>Ensemble</option>
+                <option value="yolo">YOLO</option>
+                <option value="alt">Alternative</option>
+              </select>
+            </label>
+            <label>
+              وزن YOLO در Ensemble
+              <input name="ensemble_alpha" type="number" min="0" max="1" step="0.05" value="0.60" />
+            </label>
+            <label>
+              آستانه تشخیص
+              <input name="det_conf" type="number" min="0.05" max="0.95" step="0.05" value="0.25" />
+            </label>
+          </div>
+
+          <button id="submitBtn" type="submit">اجرای مدل</button>
+        </form>
+
+        <div class="status" id="status">آماده دریافت تصویر</div>
+      </section>
+
+      <section class="workspace">
+        <div class="image-board">
+          <img id="resultImage" alt="خروجی مدل" />
+          <div id="emptyState">بعد از اجرا، تصویر خروجی اینجا نمایش داده می‌شود.</div>
+        </div>
+
+        <aside class="results">
+          <h2>نتایج</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>دندان</th>
+                <th>طول نهایی</th>
+                <th>YOLO</th>
+                <th>Alt</th>
+                <th>اعتماد</th>
+              </tr>
+            </thead>
+            <tbody id="resultRows">
+              <tr>
+                <td colspan="5">هنوز خروجی وجود ندارد.</td>
+              </tr>
+            </tbody>
+          </table>
+        </aside>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

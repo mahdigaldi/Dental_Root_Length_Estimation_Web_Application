@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Alternative IIS config if you cannot install HttpPlatformHandler.
+  Replace BOTH absolute paths before using this file as web.config:
+  1) C:\inetpub\DentalWeb\web\.venv\Scripts\python.exe
+  2) C:\inetpub\DentalWeb\web\.venv\Lib\site-packages\wfastcgi.py
+-->
+<configuration>
+  <system.webServer>
+    <handlers>
+      <add name="PythonFastCGI"
+           path="*"
+           verb="*"
+           modules="FastCgiModule"
+           scriptProcessor="C:\inetpub\DentalWeb\web\.venv\Scripts\python.exe|C:\inetpub\DentalWeb\web\.venv\Lib\site-packages\wfastcgi.py"
+           resourceType="Unspecified"
+           requireAccess="Script" />
+    </handlers>
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="16777216" />
+      </requestFiltering>
+    </security>
+  </system.webServer>
+  <appSettings>
+    <add key="WSGI_HANDLER" value="app.app" />
+    <add key="PYTHONPATH" value="C:\inetpub\DentalWeb\web" />
+    <add key="DENTAL_DEVICE" value="cpu" />
+  </appSettings>
+</configuration>
