@@ -1,4 +1,3 @@
-![Uploading dental_inographi.png…]()
 
 
 # Dental_Root_Length_Estimation_Web_Application
